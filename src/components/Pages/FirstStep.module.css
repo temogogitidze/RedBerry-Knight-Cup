@@ -1,0 +1,88 @@
+.col {
+  padding: 0;
+}
+
+.left_header {
+  height: 80px;
+  background: #7025fb;
+  display: flex;
+  text-align: center;
+  line-height: 80px;
+}
+
+.left_header_text {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.crown_photo {
+  width: 15px;
+  height: 19px;
+  margin-top: 30px;
+  margin-left: 50px;
+  margin-right: 10px;
+}
+
+.chess_img {
+  width: 100%;
+}
+
+.background_text {
+  position: absolute;
+  font-family: "Nunito", sans-serif;
+  top: 320px;
+  left: 150px;
+  font-style: italic;
+  font-weight: 800;
+  font-size: 26px;
+}
+
+.emanuel_lasker {
+  font-style: italic;
+  font-weight: 500;
+  font-size: 24px;
+  color: #e5e6e8;
+  margin-top: 15px;
+}
+
+.right_container {
+  font-family: "Open Sans", sans-serif;
+}
+
+.right_header {
+  border: 1px solid rgba(185, 180, 196, 0.3);
+}
+
+.right_header_txt {
+  height: 79px;
+  display: flex;
+  text-align: center;
+  line-height: 79px;
+  margin-left: 50px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.right_body {
+  margin-top: 50px;
+  margin-left: 50px;
+  display: flex;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pers_info {
+  font-weight: 600;
+  font-size: 32px;
+  margin-bottom: 5px;
+}
+
+.basic_info {
+  font-weight: 600;
+  font-size: 14px;
+
+  color: #95939a;
+}

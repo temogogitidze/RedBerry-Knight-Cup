@@ -1,0 +1,68 @@
+.main_container {
+  font-family: "Nunito", sans-serif;
+}
+
+.col {
+  padding: 0px;
+}
+
+.header {
+  height: 80px;
+  background: #7025fb;
+  display: flex;
+  text-align: center;
+  line-height: 80px;
+}
+
+.header_text {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.crown_photo {
+  width: 15px;
+  height: 19px;
+  margin-top: 30px;
+  margin-left: 50px;
+  margin-right: 10px;
+}
+
+.landing_photo {
+  width: 100%;
+}
+
+.right_container {
+  height: 100%;
+  background: #fd5334;
+}
+
+.rightBar_text {
+  height: 100px;
+  line-height: 100px;
+  padding-top: 25%;
+  margin-left: 7%;
+}
+
+.big_text {
+  vertical-align: middle;
+  font-weight: 800;
+  font-size: 80px;
+  color: white;
+}
+
+.mini_text {
+  vertical-align: middle;
+  font-weight: 700;
+  font-size: 20px;
+  margin-left: 15px;
+}
+
+.start_button {
+  margin-top: 35%;
+  margin-left: 7%;
+}
+
+.start_img {
+  cursor: pointer;
+}
