@@ -1,0 +1,43 @@
+.col {
+  padding: 0;
+}
+
+.left_header {
+  height: 80px;
+  background: #7025fb;
+  display: flex;
+  text-align: center;
+  line-height: 80px;
+}
+
+.left_header_text {
+  font-family: "Nunito", sans-serif;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.crown_photo {
+  width: 15px;
+  height: 19px;
+  margin-top: 30px;
+  margin-left: 50px;
+  margin-right: 10px;
+}
+
+.chess_img {
+  width: 100%;
+}
+
+.right_container {
+  position: relative;
+  height: 1200px;
+}
+
+.onboardCmplt_img {
+  margin: 0;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

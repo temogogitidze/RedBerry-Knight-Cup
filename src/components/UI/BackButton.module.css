@@ -1,0 +1,16 @@
+.back_button {
+  background-color: transparent;
+  width: 93px;
+  height: 53px;
+  border-radius: 8px;
+  border: 1px solid #212529;
+  font-weight: 400;
+  font-size: 20px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.back_button:hover {
+  background-color: #212529;
+  color: white;
+  transition: 0.3s ease-in-out;
+}

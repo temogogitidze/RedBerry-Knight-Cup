@@ -6,7 +6,8 @@ import classes from "./StartingPage.module.css";
 
 import landingPhoto from "../../assets/landingPhoto.png";
 import Crown from "../../assets/Crown.png";
-import GetStarted from "../../assets/GetStarted.png";
+
+import StartButton from "../UI/StartButton";
 
 const StartingPage = () => {
   return (
@@ -39,12 +40,8 @@ const StartingPage = () => {
             </section>
 
             <div className={classes.start_button}>
-              <NavLink to="/firstStep">
-                <img
-                  className={classes.start_img}
-                  src={GetStarted}
-                  alt="not found"
-                />
+              <NavLink to="/first-step">
+                <StartButton>Get Started</StartButton>
               </NavLink>
             </div>
           </div>

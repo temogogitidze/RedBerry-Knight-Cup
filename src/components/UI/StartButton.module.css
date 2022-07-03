@@ -1,0 +1,21 @@
+.button {
+  justify-content: center;
+  color: white;
+  width: 191px;
+  height: 53px;
+  background: #212529;
+  border: none;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 20px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.button_img {
+  margin-bottom: 3px;
+  margin-left: 9px;
+}
+
+.button:hover {
+  border: 1px solid blue;
+}

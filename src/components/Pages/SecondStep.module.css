@@ -39,12 +39,13 @@
   font-size: 26px;
 }
 
-.emanuel_lasker {
+.siegbert_tarrasch {
   font-style: italic;
   font-weight: 500;
   font-size: 24px;
-  color: #e5e6e8;
+  color: #093f68;
   margin-top: 15px;
+  float: right;
 }
 
 .right_container {
@@ -69,13 +70,13 @@
   margin-top: 50px;
   margin-left: 50px;
   display: flex;
-  height: 700px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.pers_info {
+.chess_exp {
   font-weight: 600;
   font-size: 32px;
   margin-bottom: 5px;
@@ -93,27 +94,13 @@
   width: 700px;
 }
 
-.input {
-  border: none;
-  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.125);
-  width: 700px;
-  padding: 10px;
-  margin: 13px 0px;
-  font-weight: 500;
+.done_button {
+  width: 99px;
+  height: 53px;
+  background: #212529;
+  border-radius: 8px;
+  font-weight: 400;
   font-size: 20px;
-  font-family: "Nunito", sans-serif;
-}
-
-.input:focus {
-  background: #e9ecef;
-  outline: none;
-}
-
-::placeholder {
-  color: #212529;
-  opacity: 1;
-}
-
-input[type="email"].big-dog::-webkit-input-placeholder {
-  color: red;
+  border: none;
+  color: white;
 }
