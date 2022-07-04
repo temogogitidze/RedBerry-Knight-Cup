@@ -5,6 +5,10 @@
 .col {
   padding: 0px;
 }
+.left_container {
+  max-height: 1080px;
+  overflow: hidden;
+}
 
 .header {
   height: 80px;
@@ -30,10 +34,11 @@
 
 .landing_photo {
   width: 100%;
+  height: 1000px;
 }
 
 .right_container {
-  height: 100%;
+  height: 1080px;
   background: #fd5334;
 }
 
@@ -62,4 +67,3 @@
   margin-top: 35%;
   margin-left: 7%;
 }
-
