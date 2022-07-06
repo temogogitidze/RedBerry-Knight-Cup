@@ -5,13 +5,13 @@
 .buttons {
   display: flex;
   justify-content: space-between;
-  width: 700px;
+  width: 750px;
 }
 
 .input {
   border: none;
   box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.125);
-  width: 700px;
+  width: 750px;
   padding: 10px;
   margin: 13px 0px;
   font-weight: 500;

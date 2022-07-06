@@ -17,5 +17,5 @@
 }
 
 .button:hover {
-  border: 1px solid blue;
+  outline: 4px solid #cf95d1;
 }

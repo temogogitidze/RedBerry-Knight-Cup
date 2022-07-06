@@ -25,6 +25,7 @@ const InvalidInput = (props) => {
         />
         Invalid {props.name}
         <img
+          alt="not found"
           onClick={inputCloseHandler}
           src={closeImg}
           className={classes.close_button}

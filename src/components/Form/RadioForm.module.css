@@ -1,0 +1,24 @@
+.form_container {
+  font-family: "Open Sans", sans-serif;
+
+}
+
+.radio_text {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.input_container {
+  display: flex;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.yes_text {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.no_text {
+  margin-left: 10px;
+}

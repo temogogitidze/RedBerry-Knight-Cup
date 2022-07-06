@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import classes from "./FirstStepForm.module.css";
 
@@ -8,8 +8,7 @@ import InvalidInput from "../UI/InvalidInput";
 import Button from "../UI/NextButton";
 import BackButton from "../UI/BackButton";
 
-const FirstStepForm = () => {
-  let navigate = useNavigate();
+const FirstStepForm = (props) => {
   const nameInputRef = useRef();
   const emailInputRef = useRef();
   const numberInputRef = useRef();
@@ -23,17 +22,7 @@ const FirstStepForm = () => {
   const [enteredNumberIsValid, setEnteredNumberIsValid] = useState();
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredDateIsValid, setEnteredDateIsValid] = useState();
-
-  let formIsValid = false;
-
-  if (
-    enteredNameIsValid &&
-    enteredEmailIsValid &&
-    enteredNumberIsValid &&
-    enteredDateIsValid
-  ) {
-    formIsValid = true;
-  }
+  const [formValidationState, setFormValidationState] = useState(false);
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
@@ -46,6 +35,7 @@ const FirstStepForm = () => {
     setEnteredName(enteredName);
     setEnteredEmail(enteredEmail);
     setEnteredNumber(enteredNumber);
+    setEnteredDate(enteredDate);
 
     if (enteredName.trim().length >= 2) {
       setEnteredNameIsValid(true);
@@ -71,9 +61,15 @@ const FirstStepForm = () => {
       setEnteredDateIsValid(false);
     }
 
+    let formIsValid =
+      enteredName.trim().length >= 2 &&
+      enteredEmail.includes("@redberry.ge") &&
+      enteredNumber.length >= 9 &&
+      enteredDate.length > 0;
+
     if (formIsValid) {
-      navigate("/second-step");
-      console.log("siri");
+      props.setFormValidationState(true);
+      setFormValidationState(true);
     }
   };
 
@@ -125,75 +121,86 @@ const FirstStepForm = () => {
     enteredDateIsValid === false ? classes.invalid_input : classes.input;
 
   return (
-    <form onSubmit={formSubmissionHandler}>
-      <div className={classes.form_container}>
-        <input
-          value={enteredName == null ? "" : enteredName}
-          onChange={nameChangeHandler}
-          ref={nameInputRef}
-          placeholder="Name *"
-          className={nameInputClasses}
-        />
-        {enteredNameIsValid && succesIcon}
-        <input
-          value={enteredEmail == null ? "" : enteredEmail}
-          onChange={emailChangeHandler}
-          ref={emailInputRef}
-          placeholder="Email address *"
-          className={emailInputClasses}
-        />
-        {enteredEmailIsValid && succesIcon}
-        <input
-          value={enteredNumber == null ? "" : enteredNumber}
-          onChange={phoneChangeHandler}
-          ref={numberInputRef}
-          placeholder="Phone number *"
-          className={enteredNumberClasses}
-          type="number"
-        />
-        {enteredNumberIsValid && succesIcon}
-        <input
-          value={enteredDate == null ? "" : enteredDate}
-          onChange={dateChangeHandler}
-          ref={dateInputRef}
-          placeholder="Date of birth *"
-          className={enteredDateClasses}
-        />
-        {enteredDateIsValid && succesIcon}
-      </div>
-      <section className={classes.buttons}>
-        <NavLink to="/">
-          <BackButton />
-        </NavLink>
-        <Button type="submit">Next</Button>
-      </section>
-      <div className={classes.invalid_input_container}>
-        {enteredNameIsValid === false && (
-          <InvalidInput
-            name={"name"}
-            text={"Name must be at least 2 characters"}
+    <div onClick={props.onClick}>
+      <form onSubmit={formSubmissionHandler}>
+        <div className={classes.form_container}>
+          <input
+            value={enteredName == null ? "" : enteredName}
+            onChange={nameChangeHandler}
+            ref={nameInputRef}
+            placeholder="Name *"
+            className={nameInputClasses}
           />
-        )}
-        {enteredEmailIsValid === false && (
-          <InvalidInput
-            name={"email"}
-            text={"Please enter valid email address"}
+          {enteredNameIsValid && succesIcon}
+          <input
+            value={enteredEmail == null ? "" : enteredEmail}
+            onChange={emailChangeHandler}
+            ref={emailInputRef}
+            placeholder="Email address *"
+            className={emailInputClasses}
           />
-        )}
-        {enteredNumberIsValid === false && (
-          <InvalidInput
-            name={"number"}
-            text={"Phone number must be at least 9 digits"}
+          {enteredEmailIsValid && succesIcon}
+          <input
+            value={enteredNumber == null ? "" : enteredNumber}
+            onChange={phoneChangeHandler}
+            ref={numberInputRef}
+            placeholder="Phone number *"
+            className={enteredNumberClasses}
+            type="number"
           />
-        )}
-        {enteredDateIsValid === false && (
-          <InvalidInput
-            name={"date"}
-            text={"Date of birth field should not be empty"}
+          {enteredNumberIsValid && succesIcon}
+          <input
+            value={enteredDate == null ? "" : enteredDate}
+            onChange={dateChangeHandler}
+            ref={dateInputRef}
+            placeholder="Date of birth * (Month/Day/Year)"
+            className={enteredDateClasses}
           />
-        )}
-      </div>
-    </form>
+          {enteredDateIsValid && succesIcon}
+        </div>
+        <section className={classes.buttons}>
+          <NavLink to="/">
+            <BackButton />
+          </NavLink>
+          {!formValidationState && (
+            <Button opacity={"0.6"} type="submit">
+              Next
+            </Button>
+          )}
+          {formValidationState && (
+            <NavLink to="/second-step">
+              <Button type="submit">Next</Button>
+            </NavLink>
+          )}
+        </section>
+        <div className={classes.invalid_input_container}>
+          {enteredNameIsValid === false && (
+            <InvalidInput
+              name={"name"}
+              text={"Name must be at least 2 characters"}
+            />
+          )}
+          {enteredEmailIsValid === false && (
+            <InvalidInput
+              name={"email"}
+              text={"Please enter valid email address"}
+            />
+          )}
+          {enteredNumberIsValid === false && (
+            <InvalidInput
+              name={"number"}
+              text={"Phone number must be at least 9 digits"}
+            />
+          )}
+          {enteredDateIsValid === false && (
+            <InvalidInput
+              name={"date"}
+              text={"Date of birth field should not be empty"}
+            />
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 

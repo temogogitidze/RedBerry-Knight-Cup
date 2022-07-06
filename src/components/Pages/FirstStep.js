@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Container, Row, Col } from "react-bootstrap";
 import classes from "./FirstStep.module.css";
@@ -6,10 +6,35 @@ import classes from "./FirstStep.module.css";
 import chess from "../../assets/chess.png";
 import Crown from "../../assets/Crown.png";
 import regStep from "../../assets/regStep.png";
+import frstStepTchd from "../../assets/frstStepTchd.png";
+import frstStepSucceed from "../../assets/frstStepSucceed.png";
+import useFetch from "../hooks/useFetch";
 
 import FirstStepForm from "../Form/FirstStepForm";
 
 const FirstStep = () => {
+  const [inputFieldIsTouched, setInputFieldIsTouched] = useState(false);
+  const [formValidationState, setFormValidationState] = useState(false);
+
+  const { data, error } = useFetch(
+    "https://chess-tournament-api.devtest.ge/images"
+  );
+  console.log(data && data);
+
+  const inputFieldTouchedHandler = () => {
+    setInputFieldIsTouched(true);
+  };
+
+  let progressStateImg;
+
+  if (!inputFieldIsTouched) {
+    progressStateImg = regStep;
+  } else if (inputFieldIsTouched && !formValidationState) {
+    progressStateImg = frstStepTchd;
+  } else if (formValidationState) {
+    progressStateImg = frstStepSucceed;
+  }
+
   return (
     <Container fluid className={classes.main_container}>
       <Row>
@@ -40,15 +65,19 @@ const FirstStep = () => {
             </div>
             <div className={classes.right_body}>
               <section>
-                <img src={regStep} alt="not found" />
+                <img src={progressStateImg} alt="not found" />
               </section>
               <section>
                 <p className={classes.pers_info}>Personal Information</p>
                 <p className={classes.basic_info}>
                   This Is Basic Information Fields
+                  <img src={data} />
                 </p>
               </section>
-              <FirstStepForm />
+              <FirstStepForm
+                onClick={inputFieldTouchedHandler}
+                setFormValidationState={setFormValidationState}
+              />
             </div>
           </div>
         </Col>

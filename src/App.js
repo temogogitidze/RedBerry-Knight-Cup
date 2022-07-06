@@ -6,6 +6,8 @@ import SecondStep from "./components/Pages/SecondStep";
 import RegComplete from "./components/Pages/RegComplete";
 
 function App() {
+ 
+
   return (
     <div>
       <Routes>
