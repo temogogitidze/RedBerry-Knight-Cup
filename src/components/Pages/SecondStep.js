@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { Container, Row, Col } from "react-bootstrap";
@@ -14,10 +14,15 @@ import useFetch from "../hooks/useFetch";
 import InvalidInput from "../UI/InvalidInput";
 import RadioForm from "../Form/RadioForm";
 import SecondStepSelect from "../Form/SecondStepSelect";
+import { UserContext } from "../context/UserContext";
 
 const SecondStep = () => {
+  const { userData } = useContext(UserContext);
+
+  const [user, setUser] = useState();
+
   const [experienceData, setExperienceData] = useState();
-  const [characterData, setCharacterData] = useState([]);
+  const [characterData, setCharacterData] = useState();
 
   const [isTouched, setIsTouched] = useState(false);
 
@@ -41,35 +46,42 @@ const SecondStep = () => {
   const characterOptions = data;
 
   const experienceChangeHandler = (event) => {
+    user.experience_level = experienceData.value;
     setExperienceData(event);
     localStorage.setItem("experienceData", JSON.stringify(event));
   };
 
   const characterChangeHandler = (event) => {
+    user.character_id = characterData.id;
     setCharacterData(event);
     localStorage.setItem("characterData", JSON.stringify(event));
   };
 
   const radioBtnChangeHandler = (e) => {
     setRadioBtnData(e.target.value);
+    user.already_participated = e.target.value;
   };
 
   useEffect(() => {
     setExperienceData(JSON.parse(localStorage.getItem("experienceData")));
     setCharacterData(JSON.parse(localStorage.getItem("characterData")));
-    setRadioBtnData("Yes");
-  }, []);
+    setRadioBtnData(true);
+    if (user) {
+      user.already_participated = radioBtnData;
+    }
+    setUser(userData);
+  }, [characterOptions]);
 
   const isTouchedHandler = () => {
     setIsTouched(true);
   };
+  console.log(userData);
 
   const doneButtonHandler = () => {
     setTchdValidity(false);
     if (characterData && experienceData) {
       setFormIsValid(true);
       navigate("/reg-completed");
-      localStorage.clear();
     }
   };
 
@@ -156,13 +168,7 @@ const SecondStep = () => {
                 />
               </section>
               <section className={classes.radio_input_container}>
-                <RadioForm
-                  value={"Yes"}
-                  value1={"No"}
-                  yes={"Yes"}
-                  no={"No"}
-                  onChange={radioBtnChangeHandler}
-                />
+                <RadioForm onChange={radioBtnChangeHandler} />
               </section>
               <section className={classes.buttons}>
                 <NavLink to="/first-step">

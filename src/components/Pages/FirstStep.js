@@ -9,17 +9,15 @@ import regStep from "../../assets/regStep.png";
 import frstStepTchd from "../../assets/frstStepTchd.png";
 import frstStepSucceed from "../../assets/frstStepSucceed.png";
 import useFetch from "../hooks/useFetch";
-
 import FirstStepForm from "../Form/FirstStepForm";
 
 const FirstStep = () => {
   const [inputFieldIsTouched, setInputFieldIsTouched] = useState(false);
   const [formValidationState, setFormValidationState] = useState(false);
 
-  const { data, error } = useFetch(
+  const { data } = useFetch(
     "https://chess-tournament-api.devtest.ge/images"
   );
-  console.log(data && data);
 
   const inputFieldTouchedHandler = () => {
     setInputFieldIsTouched(true);

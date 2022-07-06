@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
 
 import classes from "./FirstStepForm.module.css";
@@ -7,8 +7,11 @@ import succValidate from "../../assets/succValidate.png";
 import InvalidInput from "../UI/InvalidInput";
 import Button from "../UI/NextButton";
 import BackButton from "../UI/BackButton";
+import { UserContext } from "../context/UserContext";
 
 const FirstStepForm = (props) => {
+  const { userData, setUserData } = useContext(UserContext);
+
   const nameInputRef = useRef();
   const emailInputRef = useRef();
   const numberInputRef = useRef();
@@ -70,6 +73,12 @@ const FirstStepForm = (props) => {
     if (formIsValid) {
       props.setFormValidationState(true);
       setFormValidationState(true);
+      setUserData({
+        name: enteredName,
+        email: enteredEmail,
+        phone: enteredNumber,
+        date_of_birth: enteredDate,
+      });
     }
   };
 

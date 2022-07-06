@@ -2,30 +2,30 @@ import React from "react";
 
 import classes from "./RadioForm.module.css";
 
-const RadioForm = ({ value, value1, onChange, yes, no }) => {
+const RadioForm = ({ onChange }) => {
   return (
-    <form className={classes.form_container}>
+    <div className={classes.form_container} onChange={onChange}>
       <p className={classes.radio_text}>
         Have you participated in the Redberry Championship ? *
       </p>
       <div className={classes.input_container}>
         <input
+          className={classes.input_yes}
           type="radio"
-          name="radio-btn"
-          value={value}
-          onChange={onChange}
+          name="participation"
+          value={true}
           defaultChecked
         />
-        <div className={classes.yes_text}>{yes}</div>
+        <span className={classes.ss}>Yes</span>
         <input
+          className={classes.input_no}
           type="radio"
-          name="radio-btn"
-          value={value1}
-          onChange={onChange}
+          name="participation"
+          value={false}
         />
-        <div className={classes.no_text}> {no}</div>
+        <span className={classes.ss}>No</span>
       </div>
-    </form>
+    </div>
   );
 };
 

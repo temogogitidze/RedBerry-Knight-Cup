@@ -1,6 +1,5 @@
 .form_container {
   font-family: "Open Sans", sans-serif;
-
 }
 
 .radio_text {
@@ -14,11 +13,6 @@
   font-size: 16px;
 }
 
-.yes_text {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.no_text {
-  margin-left: 10px;
+.ss {
+  margin: 0px 13px;
 }
