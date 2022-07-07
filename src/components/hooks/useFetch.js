@@ -15,7 +15,7 @@ const useFetch = (url) => {
     } catch (error) {
       setError(error);
     }
-  }, []);
+  }, [url]);
 
   useEffect(() => {
     fetchHandler();

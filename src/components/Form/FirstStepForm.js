@@ -10,7 +10,7 @@ import BackButton from "../UI/BackButton";
 import { UserContext } from "../context/UserContext";
 
 const FirstStepForm = (props) => {
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
   const nameInputRef = useRef();
   const emailInputRef = useRef();
@@ -26,6 +26,14 @@ const FirstStepForm = (props) => {
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredDateIsValid, setEnteredDateIsValid] = useState();
   const [formValidationState, setFormValidationState] = useState(false);
+
+  const setLocalStorageData = () =>
+    setUserData({
+      name: localStorage.getItem("enteredName"),
+      email: localStorage.getItem("enteredEmail"),
+      phone: localStorage.getItem("enteredNumber"),
+      date_of_birth: localStorage.getItem("enteredDate"),
+    });
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
@@ -52,7 +60,7 @@ const FirstStepForm = (props) => {
       setEnteredEmailIsValid(false);
     }
 
-    if (enteredNumber.length >= 9) {
+    if (enteredNumber.length === 9) {
       setEnteredNumberIsValid(true);
     } else {
       setEnteredNumberIsValid(false);
@@ -67,18 +75,13 @@ const FirstStepForm = (props) => {
     let formIsValid =
       enteredName.trim().length >= 2 &&
       enteredEmail.includes("@redberry.ge") &&
-      enteredNumber.length >= 9 &&
+      enteredNumber.length === 9 &&
       enteredDate.length > 0;
 
     if (formIsValid) {
       props.setFormValidationState(true);
       setFormValidationState(true);
-      setUserData({
-        name: enteredName,
-        email: enteredEmail,
-        phone: enteredNumber,
-        date_of_birth: enteredDate,
-      });
+      setLocalStorageData();
     }
   };
 
@@ -102,13 +105,6 @@ const FirstStepForm = (props) => {
     localStorage.setItem("enteredDate", e.target.value);
   };
 
-  useEffect(() => {
-    setEnteredName(localStorage.getItem("enteredName"));
-    setEnteredEmail(localStorage.getItem("enteredEmail"));
-    setEnteredNumber(localStorage.getItem("enteredNumber"));
-    setEnteredDate(localStorage.getItem("enteredDate"));
-  }, []);
-
   const succesIcon = (
     <img
       className={classes.succ_validate_img}
@@ -116,6 +112,14 @@ const FirstStepForm = (props) => {
       alt="not found"
     />
   );
+
+  useEffect(() => {
+    setEnteredName(localStorage.getItem("enteredName"));
+    setEnteredEmail(localStorage.getItem("enteredEmail"));
+    setEnteredNumber(localStorage.getItem("enteredNumber"));
+    setEnteredDate(localStorage.getItem("enteredDate"));
+    setLocalStorageData();
+  }, []);
 
   const nameInputClasses =
     enteredNameIsValid === false ? classes.invalid_input : classes.input;
@@ -198,7 +202,7 @@ const FirstStepForm = (props) => {
           {enteredNumberIsValid === false && (
             <InvalidInput
               name={"number"}
-              text={"Phone number must be at least 9 digits"}
+              text={"Phone number must be 9 digits"}
             />
           )}
           {enteredDateIsValid === false && (

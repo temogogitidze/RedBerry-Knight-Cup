@@ -8,16 +8,11 @@ import Crown from "../../assets/Crown.png";
 import regStep from "../../assets/regStep.png";
 import frstStepTchd from "../../assets/frstStepTchd.png";
 import frstStepSucceed from "../../assets/frstStepSucceed.png";
-import useFetch from "../hooks/useFetch";
 import FirstStepForm from "../Form/FirstStepForm";
 
 const FirstStep = () => {
   const [inputFieldIsTouched, setInputFieldIsTouched] = useState(false);
   const [formValidationState, setFormValidationState] = useState(false);
-
-  const { data } = useFetch(
-    "https://chess-tournament-api.devtest.ge/images"
-  );
 
   const inputFieldTouchedHandler = () => {
     setInputFieldIsTouched(true);
@@ -69,7 +64,6 @@ const FirstStep = () => {
                 <p className={classes.pers_info}>Personal Information</p>
                 <p className={classes.basic_info}>
                   This Is Basic Information Fields
-                  <img src={data} />
                 </p>
               </section>
               <FirstStepForm

@@ -17,73 +17,118 @@ import SecondStepSelect from "../Form/SecondStepSelect";
 import { UserContext } from "../context/UserContext";
 
 const SecondStep = () => {
-  const { userData } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  const [user, setUser] = useState();
+  const { userData, setUserData } = useContext(UserContext);
 
   const [experienceData, setExperienceData] = useState();
+  const [experienceDataLocale, setExperienceDataLocale] = useState();
   const [characterData, setCharacterData] = useState();
+  const [characterIdLocale, setCharacterIdLocale] = useState();
+  const [radioBtnData, setRadioBtnData] = useState();
 
   const [isTouched, setIsTouched] = useState(false);
 
-  const [formIsValid, setFormIsValid] = useState(false);
-  const [tchdValidity, setTchdValidity] = useState(true);
+  const [formIsInvalid, setFormIsInvalid] = useState(false);
 
-  const [radioBtnData, setRadioBtnData] = useState();
-
-  let navigate = useNavigate();
-
-  const { data, error } = useFetch(
+  const { data } = useFetch(
     "https://chess-tournament-api.devtest.ge/api/grandmasters"
   );
 
-  const experienceOptions = [
-    { value: "Beginner", label: "Beginner" },
-    { value: "Intermediate", label: "Intermediate" },
-    { value: "Professional", label: "Professional" },
-  ];
-
   const characterOptions = data;
 
+  const experienceOptions = [
+    { value: "beginner", label: "Beginner" },
+    { value: "normal", label: "Intermediate" },
+    { value: "professional", label: "Professional" },
+  ];
+
   const experienceChangeHandler = (event) => {
-    user.experience_level = experienceData.value;
     setExperienceData(event);
     localStorage.setItem("experienceData", JSON.stringify(event));
+    localStorage.setItem("experienceDataLocale", JSON.stringify(event.value));
+    userData.experience_level = event.value;
   };
 
   const characterChangeHandler = (event) => {
-    user.character_id = characterData.id;
     setCharacterData(event);
     localStorage.setItem("characterData", JSON.stringify(event));
+    localStorage.setItem("characterIdLocale", JSON.stringify(event.id));
+    userData.character_id = event.id;
   };
 
   const radioBtnChangeHandler = (e) => {
-    setRadioBtnData(e.target.value);
-    user.already_participated = e.target.value;
+    setRadioBtnData(e.target.value === "true" ? true : false);
+    localStorage.setItem(
+      "participation",
+      JSON.stringify(e.target.value === "true" ? true : false)
+    );
+    userData.already_participated = e.target.value === "true" ? true : false;
+  };
+
+  const setLocalStorageData = () =>
+    setUserData({
+      name: localStorage.getItem("enteredName"),
+      email: localStorage.getItem("enteredEmail"),
+      phone: localStorage.getItem("enteredNumber"),
+      date_of_birth: localStorage.getItem("enteredDate"),
+      experience_level: experienceDataLocale && experienceDataLocale,
+      character_id: characterIdLocale && characterIdLocale,
+      already_participated: true,
+    });
+
+  const isTouchedHandler = () => {
+    setIsTouched(true);
+  };
+
+  const doneButtonHandler = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var body = JSON.stringify({
+      name: userData.name,
+      email: userData.email,
+      phone: userData.phone,
+      date_of_birth: userData.date_of_birth,
+      experience_level: userData.experience_level,
+      already_participated: userData.already_participated,
+      character_id: userData.character_id,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: body,
+      redirect: "follow",
+    };
+
+    fetch(
+      "https://chess-tournament-api.devtest.ge/api/register",
+      requestOptions
+    )
+      .then((response) =>
+        response.status === 201
+          ? registrationCompleteFn()
+          : setFormIsInvalid(true)
+      )
+      .catch((error) => console.log("error", error));
+  };
+
+  const registrationCompleteFn = () => {
+    navigate("/reg-completed");
+    localStorage.clear();
   };
 
   useEffect(() => {
     setExperienceData(JSON.parse(localStorage.getItem("experienceData")));
     setCharacterData(JSON.parse(localStorage.getItem("characterData")));
+    setExperienceDataLocale(
+      JSON.parse(localStorage.getItem("experienceDataLocale"))
+    );
+    setCharacterIdLocale(JSON.parse(localStorage.getItem("characterIdLocale")));
+    setLocalStorageData();
     setRadioBtnData(true);
-    if (user) {
-      user.already_participated = radioBtnData;
-    }
-    setUser(userData);
   }, [characterOptions]);
-
-  const isTouchedHandler = () => {
-    setIsTouched(true);
-  };
-  console.log(userData);
-
-  const doneButtonHandler = () => {
-    setTchdValidity(false);
-    if (characterData && experienceData) {
-      setFormIsValid(true);
-      navigate("/reg-completed");
-    }
-  };
 
   return (
     <Container fluid className={classes.main_container}>
@@ -130,7 +175,7 @@ const SecondStep = () => {
                 <p className={classes.chess_exp}>Chess Experience</p>
                 <div className={classes.basic_info}>
                   <div className={classes.invalid_input_container}>
-                    {!formIsValid && !tchdValidity && (
+                    {formIsInvalid && (
                       <InvalidInput
                         name="Input"
                         text="Form submission failed, select all fields"
@@ -149,17 +194,18 @@ const SecondStep = () => {
                   options={experienceOptions}
                   onChange={experienceChangeHandler}
                   value={experienceData === null ? undefined : experienceData}
+                  style1={{ height: "40px" }}
                 />
                 <SecondStepSelect
-                  value={characterData === null ? undefined : characterData}
+                  value={characterData && characterData}
                   options={
                     characterOptions &&
-                    characterOptions.map((o, i) => {
+                    characterOptions.map((option) => {
                       return {
-                        id: i,
-                        value: o.name,
-                        label: o.name,
-                        image: `https://chess-tournament-api.devtest.ge${o.image}`,
+                        id: option.id,
+                        value: option.name,
+                        label: option.name,
+                        image: `https://chess-tournament-api.devtest.ge${option.image}`,
                       };
                     })
                   }

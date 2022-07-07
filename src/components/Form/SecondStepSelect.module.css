@@ -1,5 +1,17 @@
 .options {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  height: 70px;
+
+  line-height: 70px;
+}
+
+.image {
+  margin-bottom: 15px;
+}
+
+.options2 {
+
+  height: 40px;
+  line-height: 40px;
 }

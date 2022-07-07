@@ -4,7 +4,6 @@ import Select from "react-select";
 import classes from "./SecondStepSelect.module.css";
 
 const SecondStepSelect = ({
-  label,
   options,
   onChange,
   placeholder,
@@ -14,18 +13,18 @@ const SecondStepSelect = ({
   const customStyles = {
     control: (base, state) => ({
       ...base,
-      alignItems: "center",
+      verticalAlign: "center",
+      lineHeight: "70px",
+      height: "70px",
       fontFamily: "Open Sans",
       width: "350px",
-      height: "60px",
-      maxHeight: "60px",
       gridTemplateColumns: "1fr",
       fontSize: 20,
       fontWeight: "400",
       borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
       borderColor: state.isFocused ? null : null,
       border: "none",
-      borderRadius: "4px",
+ 
       borderBottom: "1px solid rgba(0, 0, 0, 0.125)",
       boxShadow: state.isFocused ? null : null,
     }),
@@ -55,20 +54,31 @@ const SecondStepSelect = ({
         options={options}
         styles={customStyles}
         onChange={onChange}
-        label={label}
         value={value}
         placeholder={placeholder}
         formatOptionLabel={(formatOptionLabel) => (
-          <div className={classes.options}>
-            <p>{formatOptionLabel.label}</p>
+          <div>
             {formatOptionLabel.image && (
-              <img
-                width={60}
-                height={65}
-                src={formatOptionLabel.image}
-                alt="notfound"
-              />
+              <div className={classes.options}>
+                <p>{formatOptionLabel.label}</p>
+                {formatOptionLabel.image && (
+                  <img
+                    className={classes.image}
+                    width={55}
+                    height={65}
+                    src={formatOptionLabel.image}
+                    alt="not found"
+                  />
+                )}
+              </div>
             )}
+            <div>
+              {!formatOptionLabel.image && (
+                <div className={classes.options2}>
+                  <p>{formatOptionLabel.label}</p>
+                </div>
+              )}
+            </div>
           </div>
         )}
         theme={(theme) => ({
